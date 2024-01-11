@@ -1,0 +1,12 @@
+[package]
+name = "cargo-unused-workspace-deps"
+authors = ["Jarred Allen <jarredallen73@gmail.com"]
+version = "0.1.0"
+edition = "2021"
+categories = ["development-tools::build-utils"]
+keywords = ["cargo", "workspace", "lint", "diagnostics"]
+
+[dependencies]
+cargo_metadata = "0.18.1"
+clap = { version = "4.4.11", features = ["derive"] }
+toml = { version = "0.8.8" }
