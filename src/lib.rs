@@ -67,3 +67,26 @@ pub fn list_package_workspace_deps(
             .collect::<Vec<String>>(),
     )
 }
+
+pub fn remove_deps_from_workspace(manifest_path: impl AsRef<Path>, deps: &[String]) {
+    let mut manifest = fs::read_to_string(&manifest_path)
+        .expect("Failed to read manifest")
+        .parse::<toml_edit::DocumentMut>()
+        .expect("Failed to parse manifest as TOML");
+    let workspace_dependencies_table = manifest
+        .get_mut("workspace")
+        .expect("Missing workspace table in toml file")
+        .as_table_like_mut()
+        .expect("`workspace` should be a table")
+        .get_mut("dependencies")
+        .expect("Missing `workspace.dependencies` table in toml file")
+        .as_table_like_mut()
+        .expect("`workspace.dependencies` should be a table");
+    for dep_to_remove in deps {
+        workspace_dependencies_table
+            .remove(dep_to_remove)
+            .expect("Tried to remove dependency that doesn't exist");
+    }
+    fs::write(manifest_path, manifest.to_string().as_bytes())
+        .expect("Failed to write back the changed dependencies");
+}

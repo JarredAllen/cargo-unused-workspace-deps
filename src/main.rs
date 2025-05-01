@@ -34,6 +34,9 @@ struct UnusedWorkspaceDepsArguments {
     /// back to `cargo` and lets the system look it up on `$PATH`.
     #[arg(long)]
     cargo_path: Option<PathBuf>,
+    /// Remove unused dependencies instead of reporting an error.
+    #[arg(short, long)]
+    fix: bool,
 }
 
 fn main() -> ExitCode {
@@ -64,9 +67,19 @@ fn main() -> ExitCode {
         println!("Remaining workspace dependencies:");
         let mut unused_dependencies: Vec<String> = workspace_deps.into_keys().collect();
         unused_dependencies.sort_unstable();
-        for unused_dep in unused_dependencies {
+        for unused_dep in &unused_dependencies {
             println!("\t{unused_dep}");
         }
-        ExitCode::FAILURE
+        if args.fix {
+            println!("Removing unused dependencies from manifest because `--fix` was given");
+            cargo_unused_workspace_deps::remove_deps_from_workspace(
+                args.workspace_path
+                    .unwrap_or(std::path::Path::new("./Cargo.toml").to_owned()),
+                &unused_dependencies,
+            );
+            ExitCode::SUCCESS
+        } else {
+            ExitCode::FAILURE
+        }
     }
 }

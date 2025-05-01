@@ -9,7 +9,8 @@ keywords = ["cargo", "workspace", "lint", "diagnostics"]
 [dependencies]
 cargo_metadata = "0.18.1"
 clap = { version = "4.4.11", features = ["derive"] }
-toml = { version = "0.8.8" }
+toml = "0.8.8"
+toml_edit = "0.22.26"
 
 [lints.rust]
 macro_use_extern_crate = "warn"
