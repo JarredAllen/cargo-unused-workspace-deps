@@ -48,7 +48,8 @@ fn main() -> ExitCode {
         metadata_command.cargo_path(path);
     }
 
-    let mut workspace_deps = cargo_unused_workspace_deps::read_workspace_deps(args.workspace_path);
+    let mut workspace_deps =
+        cargo_unused_workspace_deps::read_workspace_deps(args.workspace_path.as_ref());
     for package in metadata_command.exec().expect("Failed to run").packages {
         let manifest_path = package.manifest_path.into_std_path_buf();
         for dep in cargo_unused_workspace_deps::list_package_workspace_deps(manifest_path) {
@@ -56,7 +57,7 @@ fn main() -> ExitCode {
         }
     }
 
-    if workspace_deps.len() == 0 {
+    if workspace_deps.is_empty() {
         println!("All workspace dependencies are in use!");
         ExitCode::SUCCESS
     } else {

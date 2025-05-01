@@ -1,6 +1,6 @@
 use std::{collections::HashMap, fs, path::Path};
 
-pub fn read_workspace_deps(path: Option<impl AsRef<Path>>) -> HashMap<String, toml::Value> {
+pub fn read_workspace_deps(path: Option<impl AsRef<Path> + Copy>) -> HashMap<String, toml::Value> {
     let path = path
         .as_ref()
         .map_or(Path::new("./Cargo.toml"), |path| path.as_ref());
