@@ -1,0 +1,6 @@
+[workspace]
+members = ["test-crate"]
+
+[workspace.dependencies]
+hashbrown = "0.16"
+syn = "2.0"

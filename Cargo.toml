@@ -70,3 +70,6 @@ unseparated_literal_suffix = "warn"
 unused_result_ok = "warn"
 unused_trait_names = "warn"
 unwrap_in_result = "warn"
+
+[dev-dependencies]
+mktemp = "0.5.1"

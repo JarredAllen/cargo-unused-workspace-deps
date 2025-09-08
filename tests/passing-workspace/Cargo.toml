@@ -1,0 +1,5 @@
+[workspace]
+members = ["test-crate"]
+
+[workspace.dependencies]
+syn = "2.0"
