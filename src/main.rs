@@ -1,10 +1,10 @@
-//! Check for unused dependencies listed in a workspace-level `Cargo.toml` file.
+#![doc = include_str!("../README.md")]
 
 use std::{path::PathBuf, process::ExitCode};
 
 use clap::Parser;
 
-/// Check for unused dependencies listed in a workspace-level `Cargo.toml` file.
+#[doc = include_str!("../README.md")]
 #[derive(Parser)]
 #[command(bin_name = "cargo")]
 #[command(author, version, about, long_about=None)]

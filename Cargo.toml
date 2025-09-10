@@ -1,16 +1,23 @@
 [package]
 name = "cargo-unused-workspace-deps"
 authors = ["Jarred Allen <jarredallen73@gmail.com"]
+description = "Check for unused dependencies listed in a workspace-level `Cargo.toml` file."
 version = "0.1.0"
 edition = "2021"
+repository = "https://github.com/JarredAllen/cargo-unused-workspace-deps"
+license = "GPL"
 categories = ["development-tools::build-utils"]
 keywords = ["cargo", "workspace", "lint", "diagnostics"]
+readme = "./README.md"
 
 [dependencies]
 cargo_metadata = "0.22.0"
 clap = { version = "4.4.11", features = ["derive"] }
 toml = "0.9.5"
 toml_edit = "0.23.4"
+
+[dev-dependencies]
+mktemp = "0.5.1"
 
 [lints.rust]
 macro_use_extern_crate = "warn"
@@ -25,13 +32,7 @@ unused_qualifications = "warn"
 [lints.clippy]
 # Lint `pedantic` by default, but make an exception where I think it's too strict
 pedantic = { level = "warn", priority = -1 }
-cast_possible_truncation = "allow"
-cast_possible_wrap = "allow"
-cast_precision_loss = "allow"
-cast_sign_loss = "allow"
-items_after_statements = "allow"
 missing_panics_doc = "allow"
-wildcard_imports = "allow"
 # Pick the "restriction" lints we want to use
 allow_attributes_without_reason = "warn"
 as_pointer_underscore = "warn"
@@ -70,6 +71,3 @@ unseparated_literal_suffix = "warn"
 unused_result_ok = "warn"
 unused_trait_names = "warn"
 unwrap_in_result = "warn"
-
-[dev-dependencies]
-mktemp = "0.5.1"
